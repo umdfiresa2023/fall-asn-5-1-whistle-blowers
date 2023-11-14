@@ -49,7 +49,7 @@ esg index \<- treatment
 
 Instructions: Choose a numerical variable that would best predict the outcome variable. As we are trying to predict the outcome, this variable does not have to be the treatment variable.
 
-Answer:esg?
+Answer:esg score
 
 **Question 5: What does the best-fitting line look like between the numerical variable and the outcome variable? (2 points)**
 
@@ -97,7 +97,9 @@ get_regression_table(modelscore2)
 Instructions: You can review how to do this in this [DataCamp](https://campus.datacamp.com/courses/modeling-with-data-in-the-tidyverse/modeling-with-multiple-regression?ex=4) video.
 
 ```{r}
-
+get_regression_points(modelscore2) %>%
+  mutate(sq_residuals = residual^2) %>%
+  summarize(sum_sq_residuals = sum(sq_residuals))
 ```
 
 **Question 10: Run a multiple regression model that uses all possible numerical, binary, and categorical variables to predict the outcome variable. What does the regression table look like? (2 points)**
@@ -112,7 +114,7 @@ The summary(ModelName) function is then used to print out the regression model. 
 
 ```{r}
 #| message: false
-#install.packages("lfe")
+install.packages("lfe")
 library("lfe")
 ```
 
@@ -120,6 +122,7 @@ Write your model below and run it.
 
 ```{r}
 
+summary(model<-felm(ESG_Score ~ GHG.QUANTITY..METRIC.TONS.CO2e. + year | company , data = df))
 ```
 
 **Question 11: What is the sum of squared residuals from the model that you ran in Question 10? (2 points)**
@@ -127,12 +130,22 @@ Write your model below and run it.
 Instructions: Because the function get_regression_points( ) does not work with the function felm( ), you have to replace get_regression_points(ModelName) with ModelName\$residuals. The rest of the code is the same as this [DataCamp](https://campus.datacamp.com/courses/modeling-with-data-in-the-tidyverse/modeling-with-multiple-regression?ex=4) video.
 
 ```{r}
+df2 <- data.frame(residuals = model$residuals)
+df2 <- df2 %>%
+  mutate(sq_residuals = ESG_Score^2) %>%
+  summarize(sum_sq_residuals = sum(sq_residuals))
 
 ```
 
 **Question 12: What equation describes the regression in Question 10? What are the values of each coefficient? (2 points)**
 
 Instructions: You can modify the equation shown below. Afterwards, indicate the value of each $\beta$ . To see an example of how categorical variables are written in an equation, see asn-6-4-key.qmd Part 1 Question 4, 5, and 6.
+
+ESG_Score=1.406×10\^−8 × GHG.QUANTITY..METRIC.TONS.CO2e. + 0.01557 × year
+
+β GHG ​ = 1.406×10\^−8
+
+β year ​ = 0.01557
 
 Answer: $Y_{it} = \beta_0 + \beta_1 X_{it} + \epsilon_{it}$
 
