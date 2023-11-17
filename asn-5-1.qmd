@@ -155,9 +155,16 @@ Instructions: You created new variables by multiplying binary variables and comb
 
 ```{r}
 
+df <- df %>%
+      mutate(ESG_Size_Interaction = interaction(ESG_Year_Interaction, Company_Size_Category),
+             Policy_Year_Trend = interaction(Environmental_Policy, Year_Trend))
+
 ```
 
-Answer:
+Answer: \
+We can combine the **`ESG_Year_Interaction`** variable with the **`Company_Size_Category`** to analyze how the impact of ESG scores over time varies with company size. This will reveal if larger companies are more responsive to ESG standards over time compared to smaller ones.
+
+Additionally, we can merge the **`Environmental_Policy`** dummy variable with the **`Year_Trend`** categorical variable. This will help us understand if the adoption of environmental policies has a more pronounced effect on GHG emissions in certain time periods.
 
 **Question 14: Run a multiple regression model that uses all possible numerical, binary, and categorical variables to predict the outcome variable. What does the regression table look like? (2 points)**
 
