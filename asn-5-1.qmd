@@ -56,7 +56,7 @@ Answer:esg score
 Instructions: Make a scatterplot that shows the relationship between the numerical variable and the outcome variable. In addition, add geom_smooth(method="lm", se=FALSE) to show the best-fitting line. You can also review this concept in this [DataCamp video.](https://campus.datacamp.com/courses/modeling-with-data-in-the-tidyverse/modeling-with-basic-regression?ex=1)
 
 ```{r}
-ggplot(df, aes(x = ESG_Score, y = GHG.QUANTITY..METRIC.TONS.CO2e.)) +
+ggplot(df, aes(x = ESG_Score, y = GHG.QUANTITY..METRIC.TONS.CO2e., col=company)) +
   geom_point() +
   labs(x = "esg", y = "GHG", title = "esg vs GHG") +
   geom_smooth(method = "lm", se = FALSE)
@@ -161,7 +161,7 @@ df <- df %>%
 
 ```
 
-Answer: \
+Answer:\
 We can combine the **`ESG_Year_Interaction`** variable with the **`Company_Size_Category`** to analyze how the impact of ESG scores over time varies with company size. This will reveal if larger companies are more responsive to ESG standards over time compared to smaller ones.
 
 Additionally, we can merge the **`Environmental_Policy`** dummy variable with the **`Year_Trend`** categorical variable. This will help us understand if the adoption of environmental policies has a more pronounced effect on GHG emissions in certain time periods.
