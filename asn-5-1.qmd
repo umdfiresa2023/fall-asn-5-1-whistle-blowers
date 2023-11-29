@@ -168,8 +168,10 @@ Additionally, we can merge the **`Environmental_Policy`** dummy variable with th
 
 **Question 14: Run a multiple regression model that uses all possible numerical, binary, and categorical variables to predict the outcome variable. What does the regression table look like? (2 points)**
 
-```{r}
+An alternative regression that you can run is:
 
+```{r}
+summary(model<-felm(ESG_Score ~ GHG.QUANTITY..METRIC.TONS.CO2e. | company + year, data = df))
 ```
 
 **Question 15: What is the sum of squared residuals from the model in Question 13? (2 points)**
